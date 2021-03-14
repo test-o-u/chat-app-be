@@ -40,10 +40,11 @@ router.post('/signup',  async   (req, res, next) =>  {
   
       if(qUser) return res.send({statusCode:400,message:"Người dùng đã tồn tại"})
       else 
-      return  res.send({statusCode:200,data:user});
 
   
      await  user.save();
+     return  res.send({statusCode:200,data:user});
+
   
     } catch (error) {
       console.log(error);
