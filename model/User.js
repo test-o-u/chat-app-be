@@ -19,7 +19,8 @@ const userSchema = mongoose.Schema({
     }],
     chatRoom: [{
         type: mongoose.Schema.Types.ObjectId, ref: "ChatRoom"
-    }]
+    }],
+    status:{type:"String",trim:true,default:"offline"}
 },
     {
         timestamps: true,
