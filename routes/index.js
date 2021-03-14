@@ -12,7 +12,7 @@ router.post('/login',  async   (req, res, next) =>  {
 const user = new User(req.query);
 
   try {
-    const qUser = User.findOne({userName:user.userName});
+    const qUser = await User.findOne({userName:user.userName});
 
     if(!qUser) return res.send({statusCode:400,message:"Sai tài khoản hoặc mật khẩu"})
     if(qUser.password == user.password)
@@ -36,7 +36,7 @@ router.post('/signup',  async   (req, res, next) =>  {
   const user = new User(req.query);
   
     try {
-      const qUser = User.findOne({userName:user.userName});
+      const qUser = await User.findOne({userName:user.userName});
   
       if(qUser) return res.send({statusCode:400,message:"Người dùng đã tồn tại"})
       else 
