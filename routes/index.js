@@ -14,11 +14,11 @@ const user = new User(req.query);
   try {
     const qUser = await User.findOne({userName:user.userName});
 
-    if(!qUser) return res.send({statusCode:400,error:"Sai tài khoản hoặc mật khẩu",data:null})
+    if(!qUser) return res.status(400).send({error:"Sai tài khoản hoặc mật khẩu",data:null})
     if(qUser.password == user.password)
-    return  res.send({statusCode:200,data:user,error:null});
+    return  res.status(200).send({data:user,error:null});
     else 
-    return res.send({statusCode:400,error:"Sai tài khoản hoặc mật khẩu",data:null})
+    return res.status(400).send({error:"Sai tài khoản hoặc mật khẩu",data:null})
 
 
   //  await  user.save();
@@ -38,12 +38,12 @@ router.post('/signup',  async   (req, res, next) =>  {
     try {
       const qUser = await User.findOne({userName:user.userName});
   
-      if(qUser) return res.send({statusCode:400,error:"Người dùng đã tồn tại",data:null})
+      if(qUser) return res.status(400).send({error:"Người dùng đã tồn tại",data:null})
       else 
 
   
      await  user.save();
-     return  res.send({statusCode:200,data:user,error:null});
+     return  res.status(200).send({data:user,error:null});
 
   
     } catch (error) {
