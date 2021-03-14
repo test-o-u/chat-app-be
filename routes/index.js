@@ -12,8 +12,14 @@ router.post('/login',  async   (req, res, next) =>  {
 const user = new User(req.query);
 
   try {
-   await  user.save();
-  return res.send(user);
+    const qUser = User.findOne({userName:user.userName});
+
+    if(!qUser) return res.send({statusCode:400,message:"Sai tài khoản hoặc mật khẩu"})
+    if(qUser.password == user.password)
+    return res.send(user);
+
+
+  //  await  user.save();
 
   } catch (error) {
     console.log(error);
