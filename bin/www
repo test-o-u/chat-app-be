@@ -12,7 +12,7 @@ var http = require('http');
  * Get port from environment and store in Express.
  */
 
-var port = normalizePort(process.env.PORT || '3000');
+var port = normalizePort(process.env.PORT || '4000');
 app.set('port', port);
 
 /**
@@ -20,6 +20,32 @@ app.set('port', port);
  */
 
 var server = http.createServer(app);
+
+/**
+ * Create Socket IO server.
+ */
+
+var io = require('socket.io')(server);
+
+
+io.on('connection', function(socket){
+  console.log(socket.id + ': connected');
+  socket.emit('id', socket.id);
+
+  socket.on('disconnect', function(){
+    console.log(socket.id + ': disconnected')
+  })
+
+  socket.on('newMessage', data => {
+   io.sockets.emit('newMessage', {data: data, id: socket.id});
+  //  io.sockets.emit('test', {data: "test"});
+    console.log(socket.id + " :" + data );
+  })
+
+});
+
+
+
 
 /**
  * Listen on provided port, on all network interfaces.
