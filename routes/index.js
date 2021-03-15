@@ -9,7 +9,7 @@ router.get('/', function(req, res, next) {
 });
 /* Get Sign in page */
 router.post('/login',  async   (req, res, next) =>  {
-const user = new User(req.query);
+const user = new User(req.body);
 
   try {
     const qUser = await User.findOne({userName:user.userName});
@@ -33,7 +33,7 @@ const user = new User(req.query);
 
 /* Get Sign in page */
 router.post('/signup',  async   (req, res, next) =>  {
-  const user = new User(req.query);
+  const user = new User(req.body);
   
     try {
       const qUser = await User.findOne({userName:user.userName});
